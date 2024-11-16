@@ -1,52 +1,21 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: linear-gradient(45deg, #ffafbd, #ffc3a0);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
+let clickCount = 0;
+
+function shrinkNo() {
+  clickCount++;
+
+  const noButton = document.getElementById("no-button");
+  const yesButton = document.getElementById("yes-button");
+
+  if (clickCount === 1 || clickCount === 2) {
+    noButton.style.transform = `scale(${1 - 0.3 * clickCount})`;
+    yesButton.style.transform = `scale(${1 + 0.3 * clickCount})`;
+  } else if (clickCount >= 3) {
+    noButton.style.display = "none";
+    yesButton.style.transform = "scale(2)";
   }
-  
-  .container {
-    text-align: center;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-    color: #333;
-  }
-  
-  .button-container {
-    margin-top: 20px;
-  }
-  
-  button {
-    font-size: 1.5rem;
-    padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  #yes-button {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  #no-button {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
-  #congrats h1 {
-    color: white;
-  }
-  
+}
+
+function showCongrats() {
+  document.querySelector(".container").classList.add("hidden");
+  document.getElementById("congrats").classList.remove("hidden");
+}
