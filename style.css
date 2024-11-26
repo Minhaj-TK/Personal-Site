@@ -1,42 +1,151 @@
+/* General Reset */
 *,
-*::after,
-*::before {
-  padding: 0;
+*::before,
+*::after {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
+/* Root Variables */
 :root {
   --dark-color: #000;
+  --leaf-color: #65e6cc;
+  --center-color: #fff;
+  --background-gradient: radial-gradient(circle, #001f3f, #000);
 }
 
+/* Body Styling */
 body {
   display: flex;
-  align-items: flex-end;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
-  background-color: var(--dark-color);
-  overflow: hidden;
+  background: var(--background-gradient);
   perspective: 1000px;
+  overflow: hidden;
 }
 
+/* Night Effect */
 .night {
   position: fixed;
-  left: 50%;
   top: 0;
-  transform: translateX(-50%);
+  left: 0;
   width: 100%;
   height: 100%;
-  filter: blur(0.1vmin);
-  background-image: radial-gradient(ellipse at top, transparent 0%, var(--dark-color)),
-                    radial-gradient(ellipse at bottom, var(--dark-color), rgba(145, 233, 255, 0.2)),
-                    repeating-linear-gradient(220deg, black 0px, black 19px, transparent 19px, transparent 22px),
-                    repeating-linear-gradient(189deg, black 0px, black 19px, transparent 19px, transparent 22px),
-                    repeating-linear-gradient(148deg, black 0px, black 19px, transparent 19px, transparent 22px),
-                    linear-gradient(90deg, #00fffa, #f0f0f0);
+  background: var(--background-gradient);
+  z-index: -1;
 }
 
-/* Add all other styles for .flower, .flower__leafs, etc. */
+/* Flower Container */
+.flowers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1.5);
+}
+
+/* Flower */
+.flower {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  animation: bloom 2s ease-in-out forwards;
+}
+
+/* Leafs */
+.flower__leafs {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center;
+}
+
+.flower__leaf {
+  position: absolute;
+  width: 50px;
+  height: 100px;
+  background: var(--leaf-color);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  animation: grow-leaf 2s ease-in-out forwards;
+}
+
+.flower__leaf--1 {
+  transform-origin: bottom center;
+  transform: rotate(0deg) scale(0);
+  animation-delay: 0.2s;
+}
+
+.flower__leaf--2 {
+  transform-origin: bottom center;
+  transform: rotate(90deg) scale(0);
+  animation-delay: 0.4s;
+}
+
+.flower__leaf--3 {
+  transform-origin: bottom center;
+  transform: rotate(180deg) scale(0);
+  animation-delay: 0.6s;
+}
+
+.flower__leaf--4 {
+  transform-origin: bottom center;
+  transform: rotate(270deg) scale(0);
+  animation-delay: 0.8s;
+}
+
+/* Center of the Flower */
+.flower__center {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: var(--center-color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  transform: scale(0);
+  animation: grow-center 1s ease-in-out forwards;
+  animation-delay: 1s;
+}
+
+/* Animations */
+@keyframes grow-leaf {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes grow-center {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bloom {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Prevent Animation Until Loaded */
 .not-loaded * {
   animation-play-state: paused !important;
 }
